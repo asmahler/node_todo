@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<h1> Add A New Todo </h1>
+
+ <form class='ui form' action='/todos' method = 'POST'>
+        <div class ='field'>
+            <label>Author</label>
+            <input type = 'text' name ='author' placeholder ='author' required>
+        </div>
+        <div class ='field'>
+            <label>Title</label>
+            <input type = 'text' name ='title' placeholder ='title of task' required>
+        </div>
+        <div class ='field'>
+            <label>description</label>
+            <input type = 'text' name ='description' placeholder ='what are you trying to do?' required>
+        </div>
+
+        <input class='ui secondary button' type ='submit'>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<% include partials/footer %>

@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<div class ='ui main text container'>
+
+<h1> All the Todos </h1>
+
+<div class ='row'>
+<%= tasks %> 
+
+<% tasks.forEach(function(task){ %>
+	<div class='card'>
+		<h2> Author: <%= task.author %></h2>
+		<h5> Task: <%= task.title %></h5>
+		<h5> Description: <%= task.description %></h5>
+		<h5> Status: <%= task.completed %> </h5>
+		<h5> ID: <%= task.id %> </h5>
+	</div>
+
+  	<% })%>
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+<% include partials/footer %>
