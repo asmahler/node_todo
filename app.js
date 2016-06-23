@@ -24,6 +24,10 @@ Task.prototype.add = function (config) {
 }
 
 
+
+
+
+
 var tasks = [
 	{
 		"title":"make bed",
@@ -52,10 +56,13 @@ tasks.forEach(function (task) {
 
 //routes
 
+
+//index route
 app.get('/', function(req,res){
 	res.render('index');
 });
 
+//new route
 app.get('/todos/new', function(req,res){
 	res.render('new')
 });
@@ -74,10 +81,15 @@ app.post('/todos', function(req,res){
 		"author": author, 
 		"title": title,
 		"description": description,
-		"completed": false
+		"completed": false,
+		var id = function(){
+			console.log(this.registry)
+		}
 	});
 	res.redirect("/todos")
 });
+
+//edit route 
 
 
 
@@ -87,4 +99,4 @@ app.post('/todos', function(req,res){
 
 app.listen(PORT, function(){
 	console.log('server started on port 5000');
-})
+})	
