@@ -60,10 +60,10 @@ app.post('/todos', function(req,res){
 });
 
 //edit route 
-app.get('/todos/:taskid',function(req,res){
+app.get('/todos/edit/:taskid',function(req,res){
 	var taskid = req.params.taskid;
 	var task = findTodo(taskid);
-	console.log(task,taskid,tasks);
+	
 
 	if(task){
 		res.render('edit',{task:task});
@@ -75,23 +75,15 @@ app.get('/todos/:taskid',function(req,res){
 });
 
 app.post('/todos/:taskid',function(req,res){
- 	//i need to update the task with information 
  	var taskid = req.params.taskid;
- 	//i need to set the object props with this new information; 
  	var author = req.body.author;
 	var title = req.body.title;
-	var description = req.body.description;
-	var task = findTodo(taskid);
-		if(task){
-			task.author = author; 
-			task.title = title; 
-			task.description = description; 
-			console.log(task,tasks);
-			res.redirect("/todos");
-		}else{
-			res.redirect("/todos");
-		}
-	
+	var description = req.body.description; 
+ 	var task = findTodo(taskid);
+		task.author = author;
+		task.title = title; 
+		task.description = description; 
+	res.redirect("/todos");
 
 
 

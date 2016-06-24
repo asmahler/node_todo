@@ -2,7 +2,7 @@
 
 <h1> Add A New Todo </h1>
 
- <form class='ui form' action='/todos/:taskid' method = 'POST'>
+ <form class='ui form' action='/todos/<%=task.id%>' method = 'POST'>
         <div class ='field'>
             <label>Author</label>
             <input type = 'text' name ='author' value='<%=task.author%>'>
