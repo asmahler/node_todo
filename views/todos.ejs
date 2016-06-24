@@ -15,7 +15,8 @@
 		<h5> Completed: <%= task.completed %> </h5>
 		<h5> ID : <%= task.id %> </h5>
 		<a href='/todos/edit/<%=task.id %>'><button>Edit</button></a>
-		<a href='#'><button>Delete</button></a>
+		<a href='/todos/status/<%=task.id%>'><button>Complete</button></a>
+		<a href='/todos/delete/<%=task.id%>'><button>Delete</button></a>
 	</div>
 
   	<% })%>
