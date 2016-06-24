@@ -5,15 +5,17 @@
 <h1> All the Todos </h1>
 
 <div class ='row'>
-<%= tasks %> 
+
 
 <% tasks.forEach(function(task){ %>
 	<div class='card'>
 		<h2> Author: <%= task.author %></h2>
 		<h5> Task: <%= task.title %></h5>
 		<h5> Description: <%= task.description %></h5>
-		<h5> Status: <%= task.completed %> </h5>
-		<h5> ID: <%= task.id %> </h5>
+		<h5> Completed: <%= task.completed %> </h5>
+		<h5> ID : <%= task.id %> </h5>
+		<a href='/todos/edit/<%=task.id %>'><button>Edit</button></a>
+		<a href='#'><button>Delete</button></a>
 	</div>
 
   	<% })%>
@@ -24,9 +26,9 @@
 
 
 
+<h4><a href= '/todos/new'> Add a todo </a></h4>
 
-
-
+<h4><a href ='/'> Back Home </a> </h4>
 
 
 <% include partials/footer %>
