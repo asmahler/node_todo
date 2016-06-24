@@ -70,8 +70,6 @@ app.get('/todos/edit/:taskid',function(req,res){
 	}else{
 		res.redirect('/todos');
 	}
-
-	
 });
 
 app.post('/todos/:taskid',function(req,res){
@@ -84,13 +82,27 @@ app.post('/todos/:taskid',function(req,res){
 		task.title = title; 
 		task.description = description; 
 	res.redirect("/todos");
+})
 
-
-
-
+app.get('/todos/status/:taskid',function(req,res){
+	var taskid = req.params.taskid; 
+	var task = findTodo(taskid);
+	task.completed = "true";
+	res.redirect('/todos');
 })
 
 
+app.get('/todos/delete/:taskid',function(req,res){
+	var taskid = req.params.taskid; 
+	var task = findTodo(taskid);
+	var index = tasks.indexOf(task);
+	tasks.splice(index,1);
+	res.redirect('/todos');
+});
+
+app.get('*',function(req,res){
+	res.redirect('/todos');
+})
 
 
 
