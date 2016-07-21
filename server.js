@@ -15,9 +15,9 @@ app.use(methodOverride('_method'));
 var tasks= [];
 var count =0; 
 function NewTodo(author,title,description){
-		this.author = author,
-		this.title = title, 
-		this.description = description,
+		this.author = author || 'default',
+		this.title = title || 'default', 
+		this.description = description || 'default',
 		this.completed = "false"
 		this.id =(++count).toString();
 		}
@@ -31,36 +31,26 @@ function findTodo(taskId){
 	}
 	return task;
 }
-//routes
+//ROUTES 
+//======
 
+//PAGE ROUTES 
+//===========
 
-//index route
+//index route, shows homepage 
 app.get('/', function(req,res){
 	res.render('index');
 });
 
-//new route
+//createing a new todo route 
+
 app.get('/todos/new', function(req,res){
-	res.render('new')
+	res.render('new');
 });
 
-app.get('/todos', function(req,res){
-	res.render("todos",{tasks:tasks})
-});
+//EDIT THE PAGE ROUTE
 
-app.post('/todos', function(req,res){
-	var author = req.body.author;
-	var title = req.body.title;
-	var description = req.body.description;
-
-	var Task = new NewTodo(author,title,description)
-	tasks.push(Task); 	
-
-	res.redirect("/todos")
-});
-
-//edit route 
-app.get('/todos/edit/:taskid',function(req,res){
+app.get('/todos/:taskid/edit',function(req,res){
 	var taskid = req.params.taskid;
 	var task = findTodo(taskid);
 	
@@ -72,16 +62,51 @@ app.get('/todos/edit/:taskid',function(req,res){
 	}
 });
 
-app.post('/todos/:taskid',function(req,res){
+
+
+
+//API ROUTE 
+//=========
+
+//GET TO TODOS 
+//============
+
+app.get('/todos', function(req,res){
+	res.json(tasks);
+});
+
+//CREATING A NEW TODO TASK 
+//========================
+
+app.post('/todos', function(req,res){
+	var author = req.body.author;
+	var title = req.body.title;
+	var description = req.body.description;
+	var task = new NewTodo(author,title,description)
+	tasks.push(task); 	
+
+	res.json(task)
+});
+
+app.post('/todos1',function(req,res){
+
  	var taskid = req.params.taskid;
+
  	var author = req.body.author;
 	var title = req.body.title;
 	var description = req.body.description; 
- 	var task = findTodo(taskid);
-		task.author = author;
-		task.title = title; 
-		task.description = description; 
-	res.redirect("/todos");
+
+	console.log(req.body);
+	
+
+
+ // 	var task = findTodo(taskid);
+	// 	task.author = author;
+	// 	task.title = title; 
+	// 	task.description = description;
+
+	// 	console.log(taskid,author,title,description); 
+	// res.json(task);
 })
 
 app.get('/todos/status/:taskid',function(req,res){
