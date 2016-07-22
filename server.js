@@ -1,7 +1,8 @@
 var methodOverride = require('method-override'), 
     bodyParser     = require('body-parser'), 
     express        = require('express'), 
-    app            = express();
+    app            = express(),
+    tasksService   = require('./services/tasks');
 
 var PORT = process.env.PORT || 5000;
 //view engine setup 
@@ -11,26 +12,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
 
-//fake db of takes 
-var tasks= [];
-var count =0; 
-function NewTodo(author,title,description){
-		this.author = author || 'default',
-		this.title = title || 'default', 
-		this.description = description || 'default',
-		this.completed = "false"
-		this.id =(++count).toString();
-		}
-
-function findTodo(taskId){
-	var task;
-	for(var i =0;i<tasks.length;i++){
-		if(taskId === tasks[i].id){
-			task = tasks[i];
-		}
-	}
-	return task;
-}
 //ROUTES 
 //======
 
@@ -72,57 +53,43 @@ app.get('/todos/:taskid/edit',function(req,res){
 //============
 
 app.get('/todos', function(req,res){
-	res.json(tasks);
+	res.json(tasksService.getTasks());
 });
 
 //CREATING A NEW TODO TASK 
 //========================
 
-app.post('/todos', function(req,res){
-	var author = req.body.author;
-	var title = req.body.title;
-	var description = req.body.description;
-	var task = new NewTodo(author,title,description)
-	tasks.push(task); 	
-
-	res.json(task)
+app.post('/todos', function(req,res){		
+	res.json(tasksService.create(req.body));
 });
 
-app.post('/todos1',function(req,res){
 
- 	var taskid = req.params.taskid;
+//THIS WILL GET AN INDIVIDUAL TASK 
+//================================
 
- 	var author = req.body.author;
-	var title = req.body.title;
-	var description = req.body.description; 
+app.get('/todos/:taskid',function(req,res){
+	res.json(tasksService.get(req.body.taskid);
+});
 
-	console.log(req.body);
+//EDITING A TODO 
+//==============
+
+app.put('/todos/:taskid',function(req,res){
+	// var taskid = req.params.taskid; 
+	// var task = findTodo(taskid);
+	updateTask2(req.params.taskid,req.params.body)
+	// task.author = req.body.author;
+	// task.title = req.body.title; 
+	// task.description = req.body.description;
+	res.json(task);
+});
+
+//DELETING A TODO 
+//===============
+
+app.delete('/todos/:taskid',function(req,res){
 	
-
-
- // 	var task = findTodo(taskid);
-	// 	task.author = author;
-	// 	task.title = title; 
-	// 	task.description = description;
-
-	// 	console.log(taskid,author,title,description); 
-	// res.json(task);
-})
-
-app.get('/todos/status/:taskid',function(req,res){
-	var taskid = req.params.taskid; 
-	var task = findTodo(taskid);
-	task.completed = "true";
-	res.redirect('/todos');
-})
-
-
-app.get('/todos/delete/:taskid',function(req,res){
-	var taskid = req.params.taskid; 
-	var task = findTodo(taskid);
-	var index = tasks.indexOf(task);
-	tasks.splice(index,1);
-	res.redirect('/todos');
+	res.status(204).end();
 });
 
 app.get('*',function(req,res){
