@@ -1,11 +1,15 @@
 <% include partials/header %>
 
-<div class ='ui main text container'>
+<div class='header'>
 
-<h1> All the Todos </h1>
+<h1> Todos </h1>
 
-<div class ='row'>
+</div>
 
+
+
+<div class='container'>
+	<div class='row'>
 
 <% tasks.forEach(function(task){ %>
 	<div class='card'>
@@ -20,6 +24,8 @@
 	</div>
 
   	<% })%>
+ 	</div>
+
  </div>
 
 

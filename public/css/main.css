@@ -1,14 +1,24 @@
 body{
 	margin:0;
 	padding: 0;
-
+	background-color:#eee;
+	font-family: Helvetica; 
 }
-h1{
+
+.header{
+	background-color:black; 
+	color:white;
+	height: 100px;
+}
+
+.header h1{
+	padding-top: 20px;
 	text-align: center;
+	font-size: 40px;
 }
 
 .card{
-	width: 100%; 
+	width: ; 
 	background-color: gray;
 	margin:20px auto;
 	height: 320px; 
@@ -20,7 +30,12 @@ h1{
 	margin-left: 20px;
 }
 
-.row {
+.container{
 	width: 100%;
+}
+
+.row {
+	width: 33%;
+	display: inline-block;
 }
 
