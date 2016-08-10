@@ -38,9 +38,7 @@ service.get = function(id){
 
 service.update = function(id,params){
 	var task = service.get(id);
-	task.author = params.author;
-	task.title = params.title;
-	task.description = params.description;
+	
 	return task;
 }
 

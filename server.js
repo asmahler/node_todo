@@ -12,37 +12,14 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
 
-//ROUTES 
-//======
-
-//PAGE ROUTES 
-//===========
-
-//index route, shows homepage 
-app.get('/', function(req,res){
-	res.render('index');
+//MIDDLEWARE 
+//==========
+// ALLOW  Access-Control-Allow-Origin 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
-
-//createing a new todo route 
-
-app.get('/todos/new', function(req,res){
-	res.render('new');
-});
-
-//EDIT THE PAGE ROUTE
-
-app.get('/todos/:taskid/edit',function(req,res){
-	var taskid = req.params.taskid;
-	var task = findTodo(taskid);
-	
-
-	if(task){
-		res.render('edit',{task:task});
-	}else{
-		res.redirect('/todos');
-	}
-});
-
 
 
 
@@ -68,7 +45,7 @@ app.post('/todos', function(req,res){
 //================================
 
 app.get('/todos/:taskid',function(req,res){
-	res.json(tasksService.get(req.body.taskid);
+	res.json(tasksService.get(req.params.taskid));
 });
 
 //EDITING A TODO 
@@ -77,7 +54,8 @@ app.get('/todos/:taskid',function(req,res){
 app.put('/todos/:taskid',function(req,res){
 	// var taskid = req.params.taskid; 
 	// var task = findTodo(taskid);
-	updateTask2(req.params.taskid,req.params.body)
+	tasksService.update(req.params.taskid,req.params.body)
+	
 	// task.author = req.body.author;
 	// task.title = req.body.title; 
 	// task.description = req.body.description;
@@ -88,7 +66,7 @@ app.put('/todos/:taskid',function(req,res){
 //===============
 
 app.delete('/todos/:taskid',function(req,res){
-	
+	tasksService.delete(req.params.taskid);
 	res.status(204).end();
 });
 
